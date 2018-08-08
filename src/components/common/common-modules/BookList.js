@@ -83,11 +83,14 @@ const BookList = props => {
                                         <Button type="ghost" size="small"
                                             onClick={() => {
                                                 history.push({
-                                                    pathname: `/book?bookId=${item._id}`,
+                                                    pathname: "/book",
+                                                    state: {
+                                                        bookId: item._id
+                                                    }
                                                 })
                                             }}
                                         >
-                                            开始阅读
+                                            查看详情
                                         </Button>
                                     </p>
                                 </div>
