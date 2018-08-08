@@ -7,6 +7,7 @@ class RankPage extends PureComponent {
     }
 
     render() {
+        console.log('rankpage: ')
         return (
             <div>
                 Rank
