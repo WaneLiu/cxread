@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
-class Rank extends PureComponent {
+class Bookshelves extends PureComponent {
     constructor(props) {
         super(props)
     }
@@ -9,10 +9,10 @@ class Rank extends PureComponent {
     render() {
         return (
             <div>
-                Rank
+                Bookshelves
             </div>
         )
     }
 }
 
-export default Rank
+export default Bookshelves

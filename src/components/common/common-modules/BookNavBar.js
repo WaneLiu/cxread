@@ -15,6 +15,10 @@ import my_unselected from '../image/my_unselected.svg'
 import my_selected from '../image/my_selected.svg'
 import Recommend from "../../recommendPage";
 import Search from '../../searchPage';
+import Rank from "../../rankPage";
+import My from "../../myPage";
+import Bookshelves from "../../bookshelvesPage";
+import Book from "../../bookDetailPage";
 
 class BookNavBar extends PureComponent {
     constructor(props) {
@@ -141,7 +145,10 @@ class BookNavBar extends PureComponent {
             <Switch>
                 <Route exact path="/recommend" component={Recommend}/>
                 <Route exact path="/search" component={Search}/>
-
+                <Route exact path="/rank" component={Rank} />
+                <Route exact path="/my" component={My} />
+                <Route exact path="/bookshelves" component={Bookshelves} />
+                <Route exact path="/book" component={Book} />
             </Switch>
             </div>
             </Router>

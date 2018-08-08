@@ -12,7 +12,7 @@ const router = () => (
             <Route exact path="/rank" component={BookNavBar} />
             <Route exact path="/my" component={BookNavBar} />
             <Route exact path="/search" component={BookNavBar} />
-            
+            <Route exact path="/book" component={BookNavBar} /> 
             <Route exact path="/ranklist" component={RankPage}/>
         </Switch>
     </Router>
