@@ -1,6 +1,4 @@
-/**
- * Created by admin on 2017/11/2.
- */
+
 // dataState--数据状态
 export const DATA_LOADING = 'DATA_LOADING';
 export const DATA_FAILURE = 'DATA_FAILURE';
