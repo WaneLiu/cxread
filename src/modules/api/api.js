@@ -1,7 +1,3 @@
-/*
- * description: the api for app
- * time: 2017年03月12日21:09:37
- */
 
 const API_BASE_URL = './api';//http://api.zhuishushenqi.com'
 const IMG_BASE_URL = 'http://statics.zhuishushenqi.com';

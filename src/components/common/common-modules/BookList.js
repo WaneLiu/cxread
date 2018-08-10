@@ -6,7 +6,7 @@ import { Button, WingBlank, WhiteSpace, NavBar } from 'antd-mobile';
 
 const BookList = props => {
     let books = props.bookListData
-    console.log(books)
+    //console.log(books)
     const styles = {
         flexContainer: {
             borderBottom: 12

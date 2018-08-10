@@ -1,6 +1,3 @@
-/**
- * Created by golike on 2017/9/26.
- */
 'use strict'
 
 // search
