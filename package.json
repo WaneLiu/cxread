@@ -8,9 +8,19 @@
       "pathRewrite": {
         "^/api": ""
       },
-      "changeOrigin": true
+      "changeOrigin": true,
+      "secure": true
+    },
+    "/chapter/*": {
+      "target": "http://chapter2.zhuishushenqi.com/chapter",
+      "pathRewrite": {
+        "^/chapter": ""
+      },
+      "changeOrigin": true,
+      "secure": true
     }
   },
+
   "homepage": ".",
   "dependencies": {
     "antd": "^3.7.2",
