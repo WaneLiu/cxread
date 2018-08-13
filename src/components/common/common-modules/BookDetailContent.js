@@ -56,7 +56,9 @@ class BookDetailContent extends PureComponent {
                                     state: {
                                         type: ConstData.READ_BOOK_START,
                                         bookName: bookDetail.title,
-                                        bookId: bookDetail._id 
+                                        bookId: bookDetail._id,
+                                        bookChapterLength: bookChapterList.length,
+                                        bookChapterList: bookChapterList 
                                     }
                                 })
                             }}
@@ -90,13 +92,16 @@ class BookDetailContent extends PureComponent {
                     <ul className={this.getChapterListClassName()}>
                         {bookChapterList.map((value, index) => {
                             return <li key={index}><Button onClick={() => {
+                                console.log('chapterList: ' + JSON.stringify(bookChapterList))
                                 history.push({
                                     pathname: '/read',
                                     state: {
                                         type:ConstData.READ_BOOK_MIDDLE,
                                         bookName:bookDetail.title,
                                         chapter: {chapterUrl:value.link,num:index,title:value.title},
-                                        bookId: bookDetail._id
+                                        bookId: bookDetail._id,
+                                        bookChapterLength: bookDetail.chaptersCount,
+                                        bookChapterList: bookChapterList 
                                     }
                                 });
                             }}>{value.title}</Button></li>;

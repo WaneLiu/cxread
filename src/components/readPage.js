@@ -2,7 +2,9 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import  * as ConstData from '../modules/constants/ConstData'
 import api from '../modules/api/api'
-
+import './common/style/readPage.css'
+import {getScrollHeight, getScrollTop, getWindowHeight} from '../modules/utils/pageUtil'
+import { Pagination, Icon } from 'antd-mobile';
 class Read extends PureComponent {
     constructor(props) {
         super(props)
@@ -13,13 +15,14 @@ class Read extends PureComponent {
         this.type = this.data ? this.data.type : ConstData.DATA_INVAILD;
         this.bookId = this.data ? this.data.bookId : -1;
         this.bookName = this.data ? this.data.bookName : -1;
+        this.bookChapterLength = this.data ? this.data.bookChapterLength : -1
+        this.chapterList = this.data.bookChapterList
         this.state = {
-            chapterList: [],
             currentChapterNum: 1,
             chapterContent: "",
             title: "",
-            leftToolBarTop: 40,
-            rightToolbarBottom: 0,
+            chapterUrl: "",
+
             getPageContentSuccess: false,//标识这一章节的内容是否已经成功获取
             visible: false
         };
@@ -79,50 +82,81 @@ class Read extends PureComponent {
         }
     }
 
-    componentDidMount() {
-        let {chapterUrl, num, title } = this.data.chapter
+    //自动滚动
+    autoScroller() {
+        let position = 0
+        while (true) {
+            // if (getScrollTop() + getWindowHeight() === getScrollHeight()) {
+            //     break
+            // }
+            if( window.scrollHeight-window.scrollTop===window.clientHeight ) {
+                break
+            }
+            console.log("12345678")
+            position++
+            window.scroll(0, position)
+            clearTimeout(timer)
+            var timer = setTimeout(() => {}, 100);
+        }
+    }
 
+    componentDidMount() {
+        let {title } = this.data.chapter
+        let num = this.state.currentChapterNum
+        let chapterUrl = this.chapterList[this.state.currentChapterNum].link
+        console.log(title + num + chapterUrl )
         if (this.type === ConstData.DATA_INVAILD) {
             return
         }
         //第一次阅读时
         if (this.type === ConstData.READ_BOOK_START) {
-            //一些开始阅读的东西需要补充，开始阅读:继续阅读 模式
+            //todo 一些开始阅读的东西需要补充，开始阅读:继续阅读 模式
             this.chapterIndex = 0
             this.fetchReadBookChapterListAndStartRead(this.bookId)
         } else if (this.type === ConstData.READ_BOOK_MIDDLE) {
             //console.log("data: " + JSON.stringify(this.data))
             this.fetchChapterDetail(chapterUrl, num, title)
         }
+        //this.autoScroller()
     }
 
     renderContentByDataState() {
         let getPageContentSuccess = this.state.getPageContentSuccess
         let renderContent = <div />
+        
         !getPageContentSuccess ? 
             renderContent = <div>加载中...</div> : 
-            renderContent = <div>
-                <h4 className="title">
-                    <span>{this.bookName}</span>
-                    <span className="current-chpater">{this.state.title}</span>
-                </h4>
-                <div ref="content" className="content">
-                    <input type="hidden" id="vip" name="" value="false" />
-                    <div className="inner-text" dangerouslySetInnerHTML={{
-                        __html: this.state.chapterContent
-                    }}></div>
+            renderContent = 
+                <div className="content-wrap">
+                    <h4 className="title">
+                        <span>{this.bookName}</span>
+                        <span className="current-chpater">{this.state.title}</span>
+                    </h4>
+                    <div ref="content" className="content" >
+                        <input type="hidden" id="vip" name="" value="false" />
+                        <div className="inner-text" dangerouslySetInnerHTML={{
+                            __html: this.state.chapterContent
+                        }}></div>
+                    </div>
+                    <div>
+                        
+                    </div>
                 </div>
-            </div>
 
         return renderContent
 
     }
 
     render() {
-        
+        const locale = {
+            preText: "上一页",
+            nextText: "下一页"
+        }
         return (
+            
             <div className="page-reader-wrap">
                 {this.renderContentByDataState()}
+                <div></div>
             </div>
         )
     }
