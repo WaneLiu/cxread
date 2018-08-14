@@ -1,4 +1,4 @@
-.content {
+.my-content {
     display: flex;
     position: fixed;
     width: 100%;
@@ -6,24 +6,24 @@
     background: rgba(0, 0, 0, .3)
 }
 
-.g-container {
+.my-content .g-container {
     position: relative;
     width: 90%;
     height: 70%;
-    margin: 15% auto;
+    margin: 5% auto;
     background: #fff;
     padding: 20px;
     justify-content: center;
     box-sizing: border-box;
 }
 
-h2 {
+.my-content .g-container  h2 {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-input {
+.my-content input {
     padding: 10px;
     width: 100%;
     border: 1px solid #e9e9e9;
@@ -33,7 +33,7 @@ input {
     font-size: 16px;
 }
 
-.g-container > .img {
+.g-container  .img-panda {
     position: absolute;
     top: -10%;
     left: 50%;
@@ -46,7 +46,7 @@ input {
     margin-bottom: 10px;
 }
 
-.g-username > img {
+.g-username  img {
     display: none;
     width: 120px;
     height: 113px;
