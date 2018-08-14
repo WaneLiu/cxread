@@ -33,7 +33,7 @@ input {
     font-size: 16px;
 }
 
-img {
+.g-container > .img {
     position: absolute;
     top: -10%;
     left: 50%;

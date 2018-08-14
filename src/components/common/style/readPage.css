@@ -1,5 +1,6 @@
 .page-reader-wrap {
     display: flex;
+    position: relative;
     flex-direction: column;
     width: 100%;
     margin: 3px auto;
@@ -19,7 +20,9 @@ h4 {
     box-shadow: 0 2px 2px #bbb;
 }
 
-.content {
+.content-wrap > .content {
+    position: relative;
+    margin-top: 6px;
     font-size: 16px;
     line-height: 24px;
     background: #e9e6d0;
@@ -27,5 +30,19 @@ h4 {
     box-shadow: 0 2px 2px #bbb;
     padding: 20px;
     box-sizing: border-box;
+}
+
+.page-reader-wrap  .pre_next {
+    display: flex;
+    align-content: space-between;
+    justify-content: center;
+    position: relative;
+    top: 5px;
+    height: 40px;
+    font-size: 1.2rem;
+}
+
+.page-reader-wrap  .pre_next  a {
+    margin: 0 10px 0 10px;
 }
 

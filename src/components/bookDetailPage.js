@@ -25,12 +25,17 @@ class Book extends PureComponent {
             let res2 = await fetch(api.READ_BOOK_CHAPTER_LIST(bookId))
             let data2 = await res2.json()
 
-            console.log(data1)
-            this.setState({
-                bookDetail: data1,
-                bookChapterList: data2.mixToc.chapters,
-                state: 'hidden'
-            })
+            //console.log(data1)
+            //console.log('bookDetailPage: '+data2.ok)
+            //ok: true查询到内容 ok:false没查询到
+            data2.ok ? 
+                this.setState({
+                    bookDetail: data1,
+                    bookChapterList: data2.mixToc.chapters,
+                    state: 'hidden'
+                }) : this.setState({
+                    state: 'not found'
+                })
         } catch (error) {
             //todo
             console.log(error)
@@ -38,17 +43,20 @@ class Book extends PureComponent {
     }
 
     componentDidMount() {
-        console.log('did mount')
+        //console.log('did mount')
         this.fetchBookDetail(this.state.bookId)
     }
 
     renderContent(type) {
         let content = <div/>
-        content = (type === 'loading' ? <div className="loading">加载中</div> : 
-            <BookDetailContent bookChapterList={this.state.bookChapterList}
-                bookDetail={this.state.bookDetail}
-            />    
-        )
+        if (type === 'loading') {
+            content = <div className="loading">加载中</div>
+        } else if (type === 'hidden') {
+            content = <BookDetailContent bookChapterList={this.state.bookChapterList}
+                bookDetail={this.state.bookDetail}/>  
+        } else {
+            content = <div className="notfound">当前小说没有入库</div>
+        }
         return content
     }
 
