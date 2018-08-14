@@ -126,8 +126,16 @@ class BookNavBar extends PureComponent {
                         
                     </TabBar.Item>
                     <TabBar.Item
-                        icon={{ uri: my_unselected }}
-                        selectedIcon={{ uri: my_selected }}
+                        icon={<div style={{
+                            width: '22px',
+                            height: '22px',
+                            background: `url(${my_unselected}) center center /  21px 21px no-repeat` }}
+                        />}
+                        selectedIcon={<div style={{
+                            width: '22px',
+                            height: '22px',
+                            background: `url(${my_selected}) center center /  21px 21px no-repeat` }}
+                        />}
                         title="我的"
                         key="my"
                         selected={this.state.selectedTab === 'mySelected'}

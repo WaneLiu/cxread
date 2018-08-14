@@ -57,6 +57,7 @@ class BookDetailContent extends PureComponent {
                                         type: ConstData.READ_BOOK_START,
                                         bookName: bookDetail.title,
                                         bookId: bookDetail._id,
+                                        chapter: {chapterUrl:bookChapterList[0].link,num:0,title:bookChapterList[0].title},
                                         bookChapterLength: bookChapterList.length,
                                         bookChapterList: bookChapterList 
                                     }

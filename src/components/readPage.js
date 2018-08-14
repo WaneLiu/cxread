@@ -4,7 +4,7 @@ import  * as ConstData from '../modules/constants/ConstData'
 import api from '../modules/api/api'
 import './common/style/readPage.css'
 import {getScrollHeight, getScrollTop, getWindowHeight} from '../modules/utils/pageUtil'
-import { Pagination, Icon } from 'antd-mobile';
+import { Pagination, Icon, NavBar, SegmentedControl, Modal } from 'antd-mobile';
 class Read extends PureComponent {
     constructor(props) {
         super(props)
@@ -17,19 +17,15 @@ class Read extends PureComponent {
         this.bookName = this.data ? this.data.bookName : -1;
         this.bookChapterLength = this.data ? this.data.bookChapterLength : -1
         this.chapterList = this.data.bookChapterList
+        //console.log('chapterlist: ' + this.chapterList)
         this.state = {
-            currentChapterNum: 1,
+            currentChapterNum: this.data.chapter.num,//当前的章节数
             chapterContent: "",
             title: "",
             chapterUrl: "",
 
             getPageContentSuccess: false,//标识这一章节的内容是否已经成功获取
             visible: false
-        };
-        this.showModal = () => {
-            this.setState({
-                visible: true,
-            });
         };
         //this.newHandleScroll = this.handleScroll.bind(this);
     }
@@ -51,7 +47,7 @@ class Read extends PureComponent {
             data = data.mixToc.chapters
             this.setState({
                 chapterList: data,
-                currentChapterNum: 1
+                currentChapterNum: 0
             })
 
         } catch (error) {
@@ -75,6 +71,7 @@ class Read extends PureComponent {
                 currentChapterNum: num,
                 getPageContentSuccess: true
             }) : this.setState({})
+            window.scrollTo(0, 0)
             //console.log(this.state.title)
             //console.log(this.state.chapterContent)
         } catch (error) {
@@ -120,6 +117,10 @@ class Read extends PureComponent {
         //this.autoScroller()
     }
 
+    componentDidUpdate() {
+        
+    }
+
     renderContentByDataState() {
         let getPageContentSuccess = this.state.getPageContentSuccess
         let renderContent = <div />
@@ -147,6 +148,29 @@ class Read extends PureComponent {
 
     }
 
+    onClickPre = () => {
+        console.log('click pre')
+        if (this.state.currentChapterNum === 0) {
+            alert('当前已是第一章')
+        } else {
+            let num = this.state.currentChapterNum - 1
+            let title = this.chapterList[num].title
+            let chapterUrl = this.chapterList[num].link
+            this.fetchChapterDetail(chapterUrl, num, title)
+        }
+    }
+
+    onClickNext = () => {
+        if (this.state.currentChapterNum === this.bookChapterLength - 1) {
+            alert('当前已是最后一章')
+        } else {
+            let num = this.state.currentChapterNum + 1
+            let title = this.chapterList[num].title
+            let chapterUrl = this.chapterList[num].link
+            this.fetchChapterDetail(chapterUrl, num, title)
+        }
+    }
+
     render() {
         const locale = {
             preText: "上一页",
@@ -156,7 +180,10 @@ class Read extends PureComponent {
             
             <div className="page-reader-wrap">
                 {this.renderContentByDataState()}
-                <div></div>
+                <div className="pre_next">
+                    <a className="pre_chapter" onClick={this.onClickPre}>上一章</a>
+                    <a className="next_chapter" onClick={this.onClickNext}>下一章</a>
+                </div>
             </div>
         )
     }
