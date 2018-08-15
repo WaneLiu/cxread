@@ -20,7 +20,8 @@ class Search extends PureComponent {
         try {
            this.setState({
                searchState: true,//表示查询中loading
-           }) 
+           })
+           //console.log(api.SEARCH_BOOKS + '?query=kkk') 
            let res = await fetch(api.SEARCH_BOOKS + `?query=${text}`)
            let data = await res.json()
            this.setState({

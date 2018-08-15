@@ -27,10 +27,26 @@ class Read extends PureComponent {
             getPageContentSuccess: false,//标识这一章节的内容是否已经成功获取
             visible: false
         };
-        //this.newHandleScroll = this.handleScroll.bind(this);
+        this.newHandleScroll = this.handleScroll.bind(this);
+    }
+
+    handleScroll(e) {
+        //console.log(e);
+        let scrollEle = e.target.scrollingElement;
+        const clientHeight = scrollEle.clientHeight;
+        let t = scrollEle.scrollTop;
+        let c = this.refs.content;
+        let top = t <= 40 ? 40 - t : 0;
+        //let bottom = t >= c.height + c.offsetTop - clientHeight ? 40 : 0;
+        //console.log(t + "--" + c.height + "--" + c.offsetTop + "--" + clientHeight);
+        this.setState({
+            leftToolBarTop: top,
+            //rightToolbarBottom: bottom
+        });
     }
 
     componentWillUnmount() {
+        window.removeEventListener('scroll', this.newHandleScroll);
         document.body.style.background = "white"
     }
 
@@ -115,6 +131,16 @@ class Read extends PureComponent {
             this.fetchChapterDetail(chapterUrl, num, title)
         }
         //this.autoScroller()
+        window.addEventListener('scroll', this.newHandleScroll);
+        let position = 0
+        console.log(position)
+        setInterval(() => window.scroll(0, position++), 0.05)
+    }
+
+    componentDidUpdate() {
+        let position = 0
+        console.log(position)
+        setInterval(() => window.scroll(0, position++), 0.05) 
     }
 
     componentDidUpdate() {
