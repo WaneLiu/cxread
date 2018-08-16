@@ -27,7 +27,7 @@ class Search extends PureComponent {
            this.setState({
                searchResultsBookDetailList: data.books
            })
-           console.log(this.state.searchResultsBookDetailList)
+           //console.log(this.state.searchResultsBookDetailList)
         } catch (error) {
             console.log(error)//todo
         }

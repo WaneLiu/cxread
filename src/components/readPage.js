@@ -117,7 +117,7 @@ class Read extends PureComponent {
         let {title } = this.data.chapter
         let num = this.state.currentChapterNum
         let chapterUrl = this.chapterList[this.state.currentChapterNum].link
-        console.log(title + num + chapterUrl )
+        //console.log(title + num + chapterUrl )
         if (this.type === ConstData.DATA_INVAILD) {
             return
         }
@@ -133,14 +133,14 @@ class Read extends PureComponent {
         //this.autoScroller()
         window.addEventListener('scroll', this.newHandleScroll);
         let position = 0
-        console.log(position)
-        setInterval(() => window.scroll(0, position++), 0.05)
+        //console.log(position)
+        //setInterval(() => window.scroll(0, position++), 0.05)
     }
 
     componentDidUpdate() {
         let position = 0
-        console.log(position)
-        setInterval(() => window.scroll(0, position++), 0.05) 
+        //console.log(position)
+        //setInterval(() => window.scroll(0, position++), 0.05) 
     }
 
     componentDidUpdate() {

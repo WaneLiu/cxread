@@ -93,7 +93,7 @@ class BookDetailContent extends PureComponent {
                     <ul className={this.getChapterListClassName()}>
                         {bookChapterList.map((value, index) => {
                             return <li key={index}><Button onClick={() => {
-                                console.log('chapterList: ' + JSON.stringify(bookChapterList))
+                                //console.log('chapterList: ' + JSON.stringify(bookChapterList))
                                 history.push({
                                     pathname: '/read',
                                     state: {
