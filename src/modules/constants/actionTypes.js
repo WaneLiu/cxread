@@ -88,3 +88,16 @@ export const SELECTION_NODES_BOOKS_FAILURE = 'SELECTION_NODES_BOOKS_FAILURE'
 
 // home -- books
 export const HOME_SPREAD = 'HOME_SPREAD'
+
+
+//login logout
+export const LOGIN = 'LOGIN'
+export const LOGOUT = 'LOGOUT'
+//=============== user -- login ==========================
+export function login(user) {
+    return {type: LOGIN, user}
+}
+
+export function logout(user) {
+    return {type: LOGOUT, user}
+}

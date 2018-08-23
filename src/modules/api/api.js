@@ -214,5 +214,7 @@ module.exports = {
     // GET 精选列表书籍
     SELECTION_NODES_BOOKS:(id)=>{
         return API_BASE_URL + '/recommendPage/node/books/all/'+id;
-    }
+    },
+
+
 }
