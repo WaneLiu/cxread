@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 //import PropTypes from 'prop-types'
-import {SearchBar} from 'antd-mobile'
+import {SearchBar, NavBar} from 'antd-mobile'
 import history from '../router/history'
 
 class Recommend extends PureComponent {
@@ -36,6 +36,7 @@ class Recommend extends PureComponent {
     render() {
         return (
             <div>
+                <NavBar>搜索书名或作者</NavBar>
                 <SearchBar
                     value={this.state.value}
                     placeholder="Search"

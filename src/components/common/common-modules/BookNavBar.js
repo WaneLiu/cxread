@@ -16,7 +16,7 @@ import my_selected from '../image/my_selected.svg'
 import Recommend from "../../recommendPage";
 import Search from '../../searchPage';
 import Rank from "../../rankPage";
-import My from "../../loginPage";
+import My from "../../myPage";
 import Bookshelves from "../../bookshelvesPage";
 import Book from "../../bookDetailPage";
 

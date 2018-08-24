@@ -9,3 +9,5 @@ export const NET_FAILURE = 'NET_FAILURE';
 
 export const READ_BOOK_START = 'READ_BOOK_START';
 export const READ_BOOK_MIDDLE = 'READ_BOOK_MIDDLE';
+
+export const postUrl = 'http://localhost:5000/post';

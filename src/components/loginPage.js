@@ -1,10 +1,15 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import '../components/common/style/myPage.css'
-import { Flex, Button } from 'antd-mobile'
+import '../components/common/style/loginPage.css'
+import { Flex, Button, NavBar, Checkbox } from 'antd-mobile'
+import {postUrl} from '../modules/constants/ConstData'
+import Cookies from 'universal-cookie'
+import { login } from '../modules/constants/actionTypes';
+import {connect} from 'react-redux'
+import history from '../router/history';
 
+const cookies = new Cookies()
 
-class My extends PureComponent {
+class Login extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
@@ -12,8 +17,100 @@ class My extends PureComponent {
             password: '',
             alerttext: '',
             open: false,
+            loginLabel: '登录',
+            signLabel: '注册',
+            rememberChecked: false,
+            autoLoginChecked: false
+        }
+    }
+
+    fetchLogin = async(user, password) => {
+        try {
+          this.setState({
+              loginLabel: '登录中'
+          })
+          let loginPost = {
+              method: 'POST',
+              cache: 'default',
+              body: JSON.stringify({user: user, password: password}),
+              headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+              } 
+          }
+          //发送登录请求
+          let res = await fetch(postUrl, loginPost)
+          let data = await res.json()
+          let loginMessage = data.message
+          //登录校验成功
+          if (loginMessage === 1) {
+              if (this.state.rememberChecked) {
+                  cookies.set('user', user)
+                  cookies.set('password', password)
+                  cookies.set('rememberChecked', true)
+              } else {
+                cookies.set('user', '')
+                cookies.set('password', '')
+                cookies.set('rememberChecked', false) 
+              }
+              if (this.state.autoLoginChecked) {
+                  cookies.set('autoLoginChecked', true)
+                  cookies.set('falg', 1)
+              } else {
+                  cookies.set('autoLoginChecked', false)
+              }
+              //修改redux state 的login值
+              this.props.login(user)
+              history.push({pathname: '/user'})
+          } else {
+              
+          }
+        } catch (error) {
             
         }
+    }
+
+    componentWillMount() {
+        if (cookies.get('autoLoginChecked') === 'true') {
+            if (cookies.get('flag') === '1') {
+                this.fetchLogin(cookies.get('user'), cookies.get('password'))
+            }
+        }
+    }
+
+    componentDidMount() {
+        if (cookies.get('rememberChecked') === 'true') {
+            this.setState({
+                user: cookies.get('user'),
+                password: cookies.get('password'),
+                rememberChecked: true
+            })
+            if (cookies.get('autoLoginChecked') === 'true') {
+                this.setState({
+                    autoLoginChecked: true
+                })
+            } else {
+                this.setState({
+                    autoLoginChecked: false
+                })
+            }
+        } else {
+            this.setState({
+                rememberChecked: false
+            })
+        }
+    }
+
+    updateRememberPassword = () => {
+        this.setState({
+            rememberChecked: !this.state.rememberChecked
+        })
+    }
+
+    updateAutoLogin = () => {
+        this.setState({
+            autoLoginChecked: !this.state.autoLoginChecked
+        })
     }
 
     render() {
@@ -26,6 +123,8 @@ class My extends PureComponent {
                 margin: '15px'
             }
         }
+        const CheckboxItem = Checkbox.CheckboxItem
+
         return (
             <div className="my-content">
                <div className="g-wrap"></div>
@@ -41,9 +140,14 @@ class My extends PureComponent {
                     </div>
                     <img className="img-panda" src="https://b-gold-cdn.xitu.io/v3/static/img/normal.0447fe9.png" className="g-normal"/>
                     <div className="loginOrRegister">
+
                         <Flex justify="center">
-                            <Button type="ghost" style={styles.button}>登录</Button>
-                            <Button type="ghost" style={styles.button}>注册</Button>
+                            <Button type="ghost" style={styles.button}>{this.state.loginLabel}</Button>
+                            <Button type="ghost" style={styles.button}>{this.state.signLabel}</Button>
+                        </Flex>
+                        <Flex justify="center">
+                            <CheckboxItem onChange={this.updateRememberPassword}>记住密码</CheckboxItem>
+                            <CheckboxItem onChange={this.updateAutoLogin}>自动登录</CheckboxItem>
                         </Flex>
                     </div>
                </div>
@@ -52,4 +156,10 @@ class My extends PureComponent {
     }
 }
 
-export default My
+const mapDispatchToProps = (dispatch) => ({
+    login: user => {
+        dispatch(login(user))
+    }
+})
+
+export default  connect(mapDispatchToProps)(Login)

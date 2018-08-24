@@ -5,6 +5,7 @@ import BookNavBar from '../components/common/common-modules/BookNavBar';
 import history from './history';
 import Read from '../components/readPage';
 import App from '../components/pages';
+import Login from '../components/loginPage';
 const router = () => (
     <Router history={history}>
         <Switch>
@@ -18,6 +19,7 @@ const router = () => (
             <Route exact path="/ranklist" component={RankPage}/>
             <Route exact path="/read" component={Read} />
             <Route exact path="/page" component={App} />
+            <Route exact path="/login" component={Login} />
         </Switch>
     </Router>
 )
