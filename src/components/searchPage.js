@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 //import PropTypes from 'prop-types'
-import history from '../router/history'
+//import history from '../router/history'
 import api from '../modules/api/api'
 import { BackTop } from 'antd';
 import BookList from './common/common-modules/BookList'
