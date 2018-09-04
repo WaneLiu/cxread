@@ -156,7 +156,6 @@ class BookNavBar extends PureComponent {
                 <Route exact path="/rank" component={Rank} />
                 <Route exact path="/my" component={My} />
                 <Route exact path="/bookshelves" component={Bookshelves} />
-                <Route exact path="/book" component={Book} />
             </Switch>
             </div>
             </Router>

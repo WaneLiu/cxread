@@ -1,15 +1,17 @@
 import React, { PureComponent } from 'react'
-import {is, fromJS} from 'immutable'
 import api from '../../../modules/api/api'
 import { Button } from 'antd-mobile';
 import history from '../../../router/history'
 import  * as ConstData from '../../../modules/constants/ConstData'
-
+import '../style/chapterPage.css'
 class BookDetailContent extends PureComponent {
     constructor(props) {
         super(props)
+        this.bookChapterList = this.props.bookChapterList
+        this.length = this.bookChapterList.length
         this.state = {
-            isShowChapterList: false
+            isShowChapterList: false,
+            idx: 0
         }       
     }
 
@@ -26,9 +28,29 @@ class BookDetailContent extends PureComponent {
     getChapterListClassName(){
         return this.state.isShowChapterList ?  "chapter-list":"chapter-list hidden-list";
     }
+    //点击下一页触发的函数
+    onClickPre = () => {
+        if (this.state.idx == 0) {
+            alert("前面没有内容!")
+            return
+        }
+        this.setState({
+            idx: this.state.idx - 1
+        })
+    }
+    //点击上一页触发的函数
+    onCLickNext = () => {
+        if (this.state.idx == (Math.ceil(this.length / 10) - 1)) {
+            alert("后面没有内容了!")
+            return
+        }
+        this.setState({
+            idx: this.state.idx + 1
+        })
+    }
 
     render() {
-        const {bookChapterList, bookDetail} = this.props
+        const { bookDetail} = this.props
         if (JSON.stringify(bookDetail) === "{}") {
             console.log("{}: " + bookDetail)
             return <div/>
@@ -49,7 +71,7 @@ class BookDetailContent extends PureComponent {
                         <p className="sup">
                             {bookDetail.author}<span>|</span>{bookDetail.minorCate}<span>|</span>{this.getWordCount(bookDetail.wordCount)}
                         </p>
-                        <Button type="ghost" size="small"
+                        <Button disabled type="ghost" size="small"
                             onClick={() => {
                                 history.push({
                                     pathname: "/read",
@@ -57,9 +79,9 @@ class BookDetailContent extends PureComponent {
                                         type: ConstData.READ_BOOK_START,
                                         bookName: bookDetail.title,
                                         bookId: bookDetail._id,
-                                        chapter: {chapterUrl:bookChapterList[0].link,num:0,title:bookChapterList[0].title},
-                                        bookChapterLength: bookChapterList.length,
-                                        bookChapterList: bookChapterList 
+                                        chapter: {chapterUrl:this.bookChapterList[0].link,num:0,title:this.bookChapterList[0].title},
+                                        bookChapterLength: this.bookChapterList.length,
+                                        bookChapterList: this.bookChapterList 
                                     }
                                 })
                             }}
@@ -91,7 +113,8 @@ class BookDetailContent extends PureComponent {
                         });
                     }} className="arrow"/></span></h3>
                     <ul className={this.getChapterListClassName()}>
-                        {bookChapterList.map((value, index) => {
+                        <div className="chapterContent">
+                        {this.bookChapterList.slice(this.state.idx * 10, (this.state.idx+1) * 10).map((value, index) => {
                             return <li key={index}><Button onClick={() => {
                                 //console.log('chapterList: ' + JSON.stringify(bookChapterList))
                                 history.push({
@@ -102,11 +125,18 @@ class BookDetailContent extends PureComponent {
                                         chapter: {chapterUrl:value.link,num:index,title:value.title},
                                         bookId: bookDetail._id,
                                         bookChapterLength: bookDetail.chaptersCount,
-                                        bookChapterList: bookChapterList 
+                                        bookChapterList: this.bookChapterList 
                                     }
                                 });
                             }}>{value.title}</Button></li>;
                         })}
+                        <div className="chapterPage">
+                            <a className="firstPage" onClick={this.firstPage}>首页</a>
+                            <a className="prePage" onClick={this.onClickPre}>上一页</a>
+                            <a className="nextPage" onClick={this.onCLickNext}>下一页</a>
+                            <a className="lastPage" onClick={this.firstPage}>末页</a>
+                        </div>
+                        </div>
                     </ul>
                 </div>
             </div>

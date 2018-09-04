@@ -262,6 +262,19 @@ module.exports = {
     // It is absolutely essential that NODE_ENV was set to production here.
     // Otherwise React will be compiled in the very slow development mode.
     new webpack.DefinePlugin(env.stringified),
+    //
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: function(module) {
+        return (
+          module.resource &&
+          /\.js$/.test(module.resource) &&
+          module.resource.indexOf(
+            path.join(__dirname, './node_modules')
+          ) === 0
+        )
+      }
+    }),
     // Minify the code.
     new webpack.optimize.UglifyJsPlugin({
       compress: {
@@ -338,27 +351,5 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty',
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'async',
-      minSize: 30000,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      automaticNameDelimiter: '~',
-      name: true,
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true
-        }
-      }
-    }
   },
 };
