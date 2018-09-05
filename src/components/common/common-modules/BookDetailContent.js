@@ -49,6 +49,22 @@ class BookDetailContent extends PureComponent {
         })
     }
 
+    //点击首页
+    onClickFirstPage = () => {
+        this.setState({
+            idx: 0
+        })
+    }
+
+    //点击末页
+    onClickLastPage = () => {
+        this.setState({
+            idx: Math.ceil(this.length / 10) - 1
+        })
+    }
+
+    
+
     render() {
         const { bookDetail} = this.props
         if (JSON.stringify(bookDetail) === "{}") {
@@ -114,28 +130,28 @@ class BookDetailContent extends PureComponent {
                     }} className="arrow"/></span></h3>
                     <ul className={this.getChapterListClassName()}>
                         <div className="chapterContent">
-                        {this.bookChapterList.slice(this.state.idx * 10, (this.state.idx+1) * 10).map((value, index) => {
-                            return <li key={index}><Button onClick={() => {
-                                //console.log('chapterList: ' + JSON.stringify(bookChapterList))
-                                history.push({
-                                    pathname: '/read',
-                                    state: {
-                                        type:ConstData.READ_BOOK_MIDDLE,
-                                        bookName:bookDetail.title,
-                                        chapter: {chapterUrl:value.link,num:index,title:value.title},
-                                        bookId: bookDetail._id,
-                                        bookChapterLength: bookDetail.chaptersCount,
-                                        bookChapterList: this.bookChapterList 
-                                    }
-                                });
-                            }}>{value.title}</Button></li>;
-                        })}
-                        <div className="chapterPage">
-                            <a className="firstPage" onClick={this.firstPage}>首页</a>
-                            <a className="prePage" onClick={this.onClickPre}>上一页</a>
-                            <a className="nextPage" onClick={this.onCLickNext}>下一页</a>
-                            <a className="lastPage" onClick={this.firstPage}>末页</a>
-                        </div>
+                            {this.bookChapterList.slice(this.state.idx * 10, (this.state.idx+1) * 10).map((value, index) => {
+                                return <li key={index} className="chapterButtonList"><Button className="chapterButton" onClick={() => {
+                                    //console.log('chapterList: ' + JSON.stringify(bookChapterList))
+                                    history.push({
+                                        pathname: '/read',
+                                        state: {
+                                            type:ConstData.READ_BOOK_MIDDLE,
+                                            bookName:bookDetail.title,
+                                            chapter: {chapterUrl:value.link,num:index,title:value.title},
+                                            bookId: bookDetail._id,
+                                            bookChapterLength: bookDetail.chaptersCount,
+                                            bookChapterList: this.bookChapterList 
+                                        }
+                                    });
+                                }}>{value.title}</Button></li>;
+                            })}
+                            <div className="chapterPage">
+                                <a className="firstPage" onClick={this.onClickFirstPage}>首页</a>
+                                <a className="prePage" onClick={this.onClickPre}>上一页</a>
+                                <a className="nextPage" onClick={this.onCLickNext}>下一页</a>
+                                <a className="lastPage" onClick={this.onClickLastPage}>末页</a>
+                            </div>
                         </div>
                     </ul>
                 </div>

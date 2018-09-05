@@ -12,6 +12,18 @@
     align-items: baseline;
 }
 
+.chapterButtonList {
+    display: flex;
+    align-items: center;
+}
+
+
+
+.chapterButton {
+    width: 250px;
+    font-size: 18px;
+}
+
 .chapterPage .prePage {
     padding: 10px;
 }

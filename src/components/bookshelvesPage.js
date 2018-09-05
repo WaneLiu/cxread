@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
 import { NavBar } from 'antd-mobile';
 
 class Bookshelves extends PureComponent {
@@ -11,7 +10,10 @@ class Bookshelves extends PureComponent {
         return (
             <div>
                 <NavBar>书架</NavBar>
-                Bookshelves
+                <div>
+                    <div className="recentReadIcon">最近阅读</div>
+                    
+                </div>
             </div>
         )
     }

@@ -70,6 +70,7 @@ class Read extends PureComponent {
             
         }
     }
+
     //点击章节时候住区数据
     fetchChapterDetail = async (chapterUrl, num, title) => {
         try {
@@ -79,10 +80,10 @@ class Read extends PureComponent {
             let res = await fetch(api.READ_BOOK_CHAPTER_DETAIL(tempUrl))
             //console.log("res" + JSON.stringify(res))
             let data = await res.json()
-            //console.log("content: " + data)
+            //console.log("type: " + typeof data.chapter.body)
             data.ok ?
             this.setState({
-                chapterContent: data.chapter.body,
+                chapterContent: data.chapter.body.replace(/\n/gm, '<br />'),
                 title: title,
                 currentChapterNum: num,
                 getPageContentSuccess: true
@@ -150,7 +151,7 @@ class Read extends PureComponent {
     renderContentByDataState() {
         let getPageContentSuccess = this.state.getPageContentSuccess
         let renderContent = <div />
-        
+        console.log(this.state.chapterContent) 
         !getPageContentSuccess ? 
             renderContent = <div>加载中...</div> : 
             renderContent = 

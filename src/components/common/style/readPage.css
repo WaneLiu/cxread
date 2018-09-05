@@ -1,7 +1,5 @@
 .page-reader-wrap {
-    display: flex;
     position: relative;
-    flex-direction: column;
     width: 100%;
     margin: 3px auto;
     color: #755927;
@@ -30,6 +28,10 @@ h4 {
     box-shadow: 0 2px 2px #bbb;
     padding: 20px;
     box-sizing: border-box;
+}
+
+.content .inner-text {
+
 }
 
 .page-reader-wrap  .pre_next {
