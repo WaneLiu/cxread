@@ -3,6 +3,8 @@ import api from '../../../modules/api/api'
 import { Button } from 'antd-mobile';
 import history from '../../../router/history'
 import  * as ConstData from '../../../modules/constants/ConstData'
+import { connect } from 'react-redux'
+import { add_read_history } from '../../../actions/readHistoryAction'
 import '../style/chapterPage.css'
 class BookDetailContent extends PureComponent {
     constructor(props) {
@@ -133,6 +135,9 @@ class BookDetailContent extends PureComponent {
                             {this.bookChapterList.slice(this.state.idx * 10, (this.state.idx+1) * 10).map((value, index) => {
                                 return <li key={index} className="chapterButtonList"><Button className="chapterButton" onClick={() => {
                                     //console.log('chapterList: ' + JSON.stringify(bookChapterList))
+                                    this.props.addReadHistory(bookDetail.title, index, this.bookChapterList,
+                                         value.title, bookDetail.cover, value.link
+                                    )
                                     history.push({
                                         pathname: '/read',
                                         state: {
@@ -141,7 +146,7 @@ class BookDetailContent extends PureComponent {
                                             chapter: {chapterUrl:value.link,num:index,title:value.title},
                                             bookId: bookDetail._id,
                                             bookChapterLength: bookDetail.chaptersCount,
-                                            bookChapterList: this.bookChapterList 
+                                            bookChapterList: this.bookChapterList,
                                         }
                                     });
                                 }}>{value.title}</Button></li>;
@@ -160,4 +165,14 @@ class BookDetailContent extends PureComponent {
     }
 }
 
-export default BookDetailContent
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addReadHistory: (bookName, currentChapterNum, 
+            chapterList, chapterTitle, bookCover, chapterUrl) => {
+                dispatch(add_read_history(bookName, currentChapterNum, 
+                    chapterList, chapterTitle, bookCover, chapterUrl))
+            }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(BookDetailContent)

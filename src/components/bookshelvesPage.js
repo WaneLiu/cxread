@@ -1,22 +1,24 @@
 import React, { PureComponent } from 'react'
 import { NavBar } from 'antd-mobile';
+import { connect } from 'react-redux'
 
-class Bookshelves extends PureComponent {
-    constructor(props) {
-        super(props)
-    }
 
-    render() {
-        return (
+const Bookshelves = ({read_history}) => {
+    return (
+        <div>
+            <NavBar>书架</NavBar>
             <div>
-                <NavBar>书架</NavBar>
+                <div className="recentReadIcon">最近阅读</div>
                 <div>
-                    <div className="recentReadIcon">最近阅读</div>
-                    
+                    {read_history.map(item => <div>{item.chapterTitle}</div>)}
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
-export default Bookshelves
+const mapStateToProps = (state) => ({
+    read_history: state.read_history
+})
+
+export default connect(mapStateToProps)(Bookshelves)

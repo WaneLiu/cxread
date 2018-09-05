@@ -3,6 +3,7 @@ import React, { PureComponent } from 'react'
 import  * as ConstData from '../modules/constants/ConstData'
 import api from '../modules/api/api'
 import './common/style/readPage.css'
+import { connect } from 'react-redux'
 // import {getScrollHeight, getScrollTop, getWindowHeight} from '../modules/utils/pageUtil'
 // import { Pagination, Icon, NavBar, SegmentedControl, Modal } from 'antd-mobile';
 class Read extends PureComponent {
@@ -106,7 +107,7 @@ class Read extends PureComponent {
             if( window.scrollHeight-window.scrollTop===window.clientHeight ) {
                 break
             }
-            console.log("12345678")
+            //console.log("12345678")
             position++
             window.scroll(0, position)
             clearTimeout(timer)
@@ -199,10 +200,6 @@ class Read extends PureComponent {
     }
 
     render() {
-        const locale = {
-            preText: "上一页",
-            nextText: "下一页"
-        }
         return (
             
             <div className="page-reader-wrap">
