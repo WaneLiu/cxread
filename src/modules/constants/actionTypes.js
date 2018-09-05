@@ -1,5 +1,9 @@
 'use strict'
 
+// read history
+export const ADD_READ_HISTORY = 'ADD_READ_HISTORY'
+export const MODIFY_READ_HISTORY = 'MODIFY_READ_HISTORY'
+
 // search
 export const SEARCH_HOT_WORDS = 'SEARCH_HOT_WORDS'
 export const SEARCH_REFRESH_HOT_WORDS = 'SEARCH_REFRESH_HOT_WORDS'

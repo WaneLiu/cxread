@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import  * as ConstData from '../modules/constants/ConstData'
 import api from '../modules/api/api'
 import './common/style/readPage.css'
-import {getScrollHeight, getScrollTop, getWindowHeight} from '../modules/utils/pageUtil'
-import { Pagination, Icon, NavBar, SegmentedControl, Modal } from 'antd-mobile';
+// import {getScrollHeight, getScrollTop, getWindowHeight} from '../modules/utils/pageUtil'
+// import { Pagination, Icon, NavBar, SegmentedControl, Modal } from 'antd-mobile';
 class Read extends PureComponent {
     constructor(props) {
         super(props)
@@ -151,7 +151,7 @@ class Read extends PureComponent {
     renderContentByDataState() {
         let getPageContentSuccess = this.state.getPageContentSuccess
         let renderContent = <div />
-        console.log(this.state.chapterContent) 
+        //console.log(this.state.chapterContent) 
         !getPageContentSuccess ? 
             renderContent = <div>加载中...</div> : 
             renderContent = 
