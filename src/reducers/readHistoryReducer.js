@@ -16,11 +16,12 @@ const read_history = (state = initialState, action) => {
                     bookCover: action.bookCover,
                     chapterTitle: action.chapterTitle,
                     chapterList: action.chapterList,
-                    currentChapterNum: action.currentChapterNum,
+                    currentChapterNum: action.currentChapterNum,//BookDetailContent传过来的index
                     chapterUrl: action.chapterUrl,
+                    bookId: action.bookId,
                     sortId: action.sortId
-                }
-                ,...initialState
+                },
+                ...state
             ]
         case MODIFY_READ_HISTORY:
             return state.map((item) => {

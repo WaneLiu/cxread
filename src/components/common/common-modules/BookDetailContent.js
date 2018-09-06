@@ -135,8 +135,9 @@ class BookDetailContent extends PureComponent {
                             {this.bookChapterList.slice(this.state.idx * 10, (this.state.idx+1) * 10).map((value, index) => {
                                 return <li key={index} className="chapterButtonList"><Button className="chapterButton" onClick={() => {
                                     //console.log('chapterList: ' + JSON.stringify(bookChapterList))
+                                    //点击之后先dispatch再跳转页面
                                     this.props.addReadHistory(bookDetail.title, index, this.bookChapterList,
-                                         value.title, bookDetail.cover, value.link
+                                         value.title, bookDetail.cover, value.link, bookDetail._id
                                     )
                                     history.push({
                                         pathname: '/read',
